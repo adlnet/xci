@@ -1,3 +1,4 @@
+sudo apt-get install libxml2-dev libxslt-dev python-dev zlib1g-dev
 Flask==0.10.1
 Flask-Login==0.2.9
 Flask-WTF==0.9.4
