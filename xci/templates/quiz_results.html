@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 <div class="jumbotron">
 		<h2>Results</h2>
     	<p> Thanks for taking the quiz!! You scored {{score}} out of 5</p>
@@ -103,5 +104,6 @@
 		<br>
 		{% endif %}
 		{% endfor %}
+</div>
 </div>
 {% endblock %}

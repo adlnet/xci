@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 <div class="page-header">
     <h1>{{ fwk.title }}
     {% if fwk.completed %}
@@ -7,60 +8,79 @@
     {% endif %}
     </h1>
 </div>
-<div class="col-xs-12">
-    <dl class="dl-horizontal">
-        <dt>uri</dt>
-        <dd>{{ fwk.uri }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>description</dt>
-        <dd>{{ fwk.description|safe }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>levels</dt>
-        <dd>{{ fwk.levels }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>type</dt>
-        <dd>{{ fwk.type }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>last modified</dt>
-        <dd>{{ fwk.lastmodified }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>ids</dt>
-        <dd>{{ fwk.ids }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>relations</dt>
-        <dd>{{ fwk.relations }}</dd>
-    </dl>
+
+<ul class="collection">
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Description</h5></span>
+      <p>{{ fwk.description|safe }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Type</h5></span>
+      <p>{{ fwk.type }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">URI</h5></span>
+      <p>{{ fwk.uri }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">IDS</h5></span>
+      <p>{{ fwk.ids }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Last Modified</h5></span>
+      <p>{{ fwk.lastmodified }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Levels</h5></span>
+      <p>{{ fwk.levels }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Relations</h5></span>
+      <p>{{ fwk.relations }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Last Modified</h5></span>
+      <p>{{ fwk.lastmodified }}</p>
+    </li>
+  </ul>
+
+<div class="row">
+{% for c in fwk.competencies recursive %}
+{% if c.type == 'http://ns.medbiq.org/competencyframework/v1/' %}
+  <div class="col s12">
+    <div class="card blue-grey lighten-3">
+      <div class="card-content black-text">
+        <span class="card-title"><a class="orange-text text-accent-4" href="{{ url_for('frameworks') }}?uri={{c.uri}}">{{ c.title }}</a></span>
+        <p>{{ c.description|safe }}</p>
+          <ul>
+          {% for lr in c.lr_data %}
+          <li><a href="{{ lr }}">LR Metadata</a></li>
+          {% else %}
+          There are no known linked LR resources
+          {% endfor %}
+          </ul>
+      </div>
+    </div>
+  </div>
 </div>
-{% for c in fwk.competencies %}
-<div class="col-xs-12">
-    {% if c.completed %}
-    <div class="panel panel-success">
-        <div class="panel-heading">
-            <h3 class="panel-title"><a href="{{ url_for('me_competencies') }}?uri={{c.uri}}">{{ c.title }}</a></h3>
-        </div>
-    {% else %}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title"><a href="{{ url_for('me_competencies') }}?uri={{c.uri}}">{{ c.title }}</a></h3>
-        </div>
-    {% endif %}
-        <div class="panel-body">
-            <p>{{ c.description|safe }}</p>
+{ loop(c.competencies)}}
+{% else %}
+    <div class="col s12 m6">
+      <div class="card blue-grey lighten-3">
+        <div class="card-content black-text">
+          <span class="card-title"><a class="orange-text text-accent-4" href="{{ url_for('competencies') }}?uri={{c.uri}}">{{ c.title }}</a></span>
+          <p>{{ c.description|safe }}</p>
             <ul>
             {% for lr in c.lr_data %}
             <li><a href="{{ lr }}">LR Metadata</a></li>
             {% else %}
             There are no known linked LR resources
             {% endfor %}
-            </ul>            
+            </ul>  
         </div>
+      </div>
     </div>
-</div>
+{% endif %}
 {% endfor %}
+</div>
 {% endblock %}

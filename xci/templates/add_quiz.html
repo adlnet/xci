@@ -1,18 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
+
 <h2>Create Quiz for Competency</h2>
 	<form method="post" role="form" class="form-horizontal" id="quiz_form">
 	   <div class="form-group">
 	   	<label for="question1" class="col-lg-2 control-label">Q1 Type</label>
-	   	<div class="input-group">
-	   		<div class="btn-group">
-					<input name="types1" type="radio" value="true/false" checked="checked">true/false
+	   	<p>
+					<input name="types1" type="radio" value="true/false" id="t/f" checked="checked">
+					<label for="t/f">true/false</label>
 					<br>
-					<input name="types1" type="radio" value="short answer">short answer
+					<input name="types1" type="radio" value="short answer" id="SA">
+					<label for="SA">short answer</label>
 					<br>
-					<input name="types1" type="radio" value="choice">choice
-	   		</div>
-	   	</div>
+					<input name="types1" type="radio" value="choice" id="C">
+					<label for="C">choice</label>
+		</p>
 	   </div>
 	   <div class="form-group">
 	   		<label for="question1text" class="col-lg-2 control-label">Q1 Text</label>
@@ -32,16 +35,20 @@
 	   			<input name="question1choices" type="text" class="form-control" id="question1choicesinput">
 	   		</div>
 	   </div>
-	   <div class="form-group">
+
+	  <div class="form-group">
 	   	<label for="question2" class="col-lg-2 control-label">Q2 Type</label>
 	   	<div class="input-group">
-	   		<div class="btn-group">
-					<input name="types2" type="radio" value="true/false" checked="checked">true/false
-					<br>
-					<input name="types2" type="radio" value="short answer">short answer
-					<br>
-					<input name="types2" type="radio" value="choice">choice
-	   		</div>
+	   		<p>
+				<input name="types2" type="radio" value="true/false" id="t/f2" checked="checked">
+				<label for="t/f2">true/false</label>
+				<br>
+				<input name="types2" type="radio" value="short answer" id="SA2">
+				<label for="SA2">short answer</label>
+				<br>
+				<input name="types2" type="radio" value="choice" id="C2">
+				<label for="C2">choice</label>
+			</p>
 	   	</div>
 	   <div class="form-group">
 	   		<label for="question2text" class="col-lg-2 control-label">Q2 Text</label>
@@ -65,13 +72,16 @@
 	   <div class="form-group">
 	   	<label for="question3" class="col-lg-2 control-label">Q3 Type</label>
 	   	<div class="input-group">
-	   		<div class="btn-group">
-					<input name="types3" type="radio" value="true/false" checked="checked">true/false
-					<br>
-					<input name="types3" type="radio" value="short answer">short answer
-					<br>
-					<input name="types3" type="radio" value="choice">choice
-	   		</div>
+	   		<p>
+				<input name="types3" type="radio" value="true/false" id="t/f3" checked="checked">
+				<label for="t/f3">true/false</label>
+				<br>
+				<input name="types3" type="radio" value="short answer" id="SA3">
+				<label for="SA3">short answer</label>
+				<br>
+				<input name="types3" type="radio" value="choice" id="C3">
+				<label for="C3">choice</label>
+			</p>
 	   	</div>
 	   </div>
 	   <div class="form-group">
@@ -95,13 +105,16 @@
 	   <div class="form-group">
 	   	<label for="question4" class="col-lg-2 control-label">Q4 Type</label>
 	   	<div class="input-group">
-	   		<div class="btn-group">
-					<input name="types4" type="radio" value="true/false" checked="checked">true/false
-					<br>
-					<input name="types4" type="radio" value="short answer">short answer
-					<br>
-					<input name="types4" type="radio" value="choice">choice
-	   		</div>
+	   		<p>
+				<input name="types4" type="radio" value="true/false" id="t/f4" checked="checked">
+				<label for="t/f4">true/false</label>
+				<br>
+				<input name="types4" type="radio" value="short answer" id="SA4">
+				<label for="SA4">short answer</label>
+				<br>
+				<input name="types4" type="radio" value="choice" id="C4">
+				<label for="C4">choice</label>
+			</p>
 	   	</div>
 	   </div>
 	   <div class="form-group">
@@ -125,13 +138,16 @@
 	   <div class="form-group">
 	   	<label for="question5" class="col-lg-2 control-label">Q5 Type</label>
 	   	<div class="input-group">
-	   		<div class="btn-group">
-					<input name="types5" type="radio" value="true/false" checked="checked">true/false
-					<br>
-					<input name="types5" type="radio" value="short answer">short answer
-					<br>
-					<input name="types5" type="radio" value="choice">choice
-	   		</div>
+	   		<p>
+				<input name="types5" type="radio" value="true/false" id="t/f5" checked="checked">
+				<label for="t/f5">true/false</label>
+				<br>
+				<input name="types5" type="radio" value="short answer" id="SA5">
+				<label for="SA5">short answer</label>
+				<br>
+				<input name="types5" type="radio" value="choice" id="C5">
+				<label for="C5">choice</label>
+			</p>
 	   	</div>
 	   </div>
 	   <div class="form-group">
@@ -155,13 +171,16 @@
 	   <div class="form-group">
 	   	<label for="question6" class="col-lg-2 control-label">Q6 Type</label>
 	   	<div class="input-group">
-	   		<div class="btn-group">
-					<input name="types6" type="radio" value="true/false" checked="checked">true/false
-					<br>
-					<input name="types6" type="radio" value="short answer">short answer
-					<br>
-					<input name="types6" type="radio" value="choice">choice
-	   		</div>
+	   		<p>
+				<input name="types6" type="radio" value="true/false" id="t/f6" checked="checked">
+				<label for="t/f6">true/false</label>
+				<br>
+				<input name="types6" type="radio" value="short answer" id="SA6">
+				<label for="SA6">short answer</label>
+				<br>
+				<input name="types6" type="radio" value="choice" id="C6">
+				<label for="C6">choice</label>
+			</p>
 	   	</div>
 	   </div>
 	   <div class="form-group">
@@ -185,13 +204,16 @@
 	   <div class="form-group">
 	   	<label for="question7" class="col-lg-2 control-label">Q7 Type</label>
 	   	<div class="input-group">
-	   		<div class="btn-group">
-					<input name="types7" type="radio" value="true/false" checked="checked">true/false
-					<br>
-					<input name="types7" type="radio" value="short answer">short answer
-					<br>
-					<input name="types7" type="radio" value="choice">choice
-	   		</div>
+	   		<p>
+				<input name="types7" type="radio" value="true/false" id="t/f7" checked="checked">
+				<label for="t/f7">true/false</label>
+				<br>
+				<input name="types7" type="radio" value="short answer" id="SA7">
+				<label for="SA7">short answer</label>
+				<br>
+				<input name="types7" type="radio" value="choice" id="C7">
+				<label for="C7">choice</label>
+			</p>
 	   	</div>
 	   </div>
 	   <div class="form-group">
@@ -215,13 +237,16 @@
 	   <div class="form-group">
 	   	<label for="question8" class="col-lg-2 control-label">Q8 Type</label>
 	   	<div class="input-group">
-	   		<div class="btn-group">
-					<input name="types8" type="radio" value="true/false" checked="checked">true/false
-					<br>
-					<input name="types8" type="radio" value="short answer">short answer
-					<br>
-					<input name="types8" type="radio" value="choice">choice
-	   		</div>
+	   		<p>
+				<input name="types8" type="radio" value="true/false" id="t/f8" checked="checked">
+				<label for="t/f8">true/false</label>
+				<br>
+				<input name="types8" type="radio" value="short answer" id="SA8">
+				<label for="SA8">short answer</label>
+				<br>
+				<input name="types8" type="radio" value="choice" id="C8">
+				<label for="C8">choice</label>
+			</p>
 	   	</div>
 	   </div>
 	   <div class="form-group">
@@ -245,13 +270,16 @@
 	   <div class="form-group">
 	   	<label for="question9" class="col-lg-2 control-label">Q9 Type</label>
 	   	<div class="input-group">
-	   		<div class="btn-group">
-					<input name="types9" type="radio" value="true/false" checked="checked">true/false
-					<br>
-					<input name="types9" type="radio" value="short answer">short answer
-					<br>
-					<input name="types9" type="radio" value="choice">choice
-	   		</div>
+	   		<p>
+				<input name="types9" type="radio" value="true/false" id="t/f9" checked="checked">
+				<label for="t/f9">true/false</label>
+				<br>
+				<input name="types9" type="radio" value="short answer" id="SA9">
+				<label for="SA9">short answer</label>
+				<br>
+				<input name="types9" type="radio" value="choice" id="C9">
+				<label for="C9">choice</label>
+			</p>
 	   	</div>
 	   </div>
 	   <div class="form-group">
@@ -275,13 +303,16 @@
 	   <div class="form-group">
 	   	<label for="question10" class="col-lg-2 control-label">Q10 Type</label>
 	   	<div class="input-group">
-	   		<div class="btn-group">
-					<input name="types10" type="radio" value="true/false" checked="checked">true/false
-					<br>
-					<input name="types10" type="radio" value="short answer">short answer
-					<br>
-					<input name="types10" type="radio" value="choice">choice
-	   		</div>
+	   		<p>
+				<input name="types10" type="radio" value="true/false" id="t/f10" checked="checked">
+				<label for="t/f10">true/false</label>
+				<br>
+				<input name="types10" type="radio" value="short answer" id="SA10">
+				<label for="SA10">short answer</label>
+				<br>
+				<input name="types10" type="radio" value="choice" id="C10">
+				<label for="C10">choice</label>
+			</p>
 	   	</div>
 	   </div>
 	   <div class="form-group">
@@ -308,6 +339,7 @@
 	   	</div>
 	   </div>
 	</form>
+</div>
 {% endblock %}
 {% block js %}
 <script type="text/javascript">
@@ -407,5 +439,7 @@ function processOtherFields(num){
 		$("#question" + num + "choicesinput").removeAttr('required');
 	}
 }
+
+
 </script>
 {% endblock %}

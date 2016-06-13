@@ -1,42 +1,92 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="page-header">
-    <h1>xAPI / Competency Demo <small>Demonstrating xAPI, the Learning Registry, and competencies</small></h1>
+<html lang="en">
+<div class="container">
+<body>
+  <div class="section no-pad-bot" id="index-banner">
+      <br>
+      <h1 class="header center cyan-text">Welcome to the xAPI / Competency Demo</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">Demonstrating xAPI, the Learning Registry, and competencies</h5>
+    </div>
+
+<br>
+
+<div class="align-left">
+      <div class="col s6 m5">
+        <div class="card-panel blue z-depth-2">
+          <span class="white-text"><h5>This app demonstrates one way to connect existing technologies to make smarter and more tailored tools for students. The goals are:</h5>
+          </span>
+        </div>
+      </div>
+    </div>
+
+<div class="align-left">
+      <div class="col s6 m5">
+        <div class="card-panel transparent">
+          <span class="black-text">Show how a system can use the competency URIs to find the machine readable version of a competency.
+          </span>
+        </div>
+      </div>
+    </div>
+
+<div class="align-center">
+      <div class="col s6 m5">
+        <div class="card-panel transparent">
+          <span class="black-text">Show how a competency URI can act as the object of some experience, or as part of the context of an experience.
+          </span>
+        </div>
+      </div>
+    </div>
+
+<div class="align-right">
+      <div class="col s6 m5">
+        <div class="card-panel transparent">
+          <span class="black-text">Show how content relevant to a learners' goals can become discoverable in the Learning Registry (LR) by associating the competency URI to the content in the LR.
+          </span>
+        </div>
+      </div>
+    </div>
+
+<br>
+<br>
+
+<div class="align-left">
+  <div class="col s12 m6">
+    <div class="card blue-grey z-depth-2">
+      <div class="card-content white-text">
+        <span class="card-title orange-text accent-4">Getting Started</span>
+        <p>After logging in, explore the competencies and sets. Sign up for a competency. Search the LR and associate comptencies to the LR results.</p>
+      </div>
+      <div class="card-action">
+        <a class="orange-text" href="{{ url_for('login') }}">Log in</a>
+        <a class="orange-text" href="{{ url_for('sign_up') }}">Sign up</a>
+      </div>
+    </div>
+  </div>
 </div>
+
+
+
 {% if 'admin' in current_user.roles %}
+<div class="row"><div class="col s12"><hr></div></div>
+<h5>Admin Options</h5>
 <div class="row">
-    <div class="col-xs-2">
+    <div class="col s12">
         <form class="form-inline" role="form" method="post" action="{{ url_for('reset_all') }}">
             <button type="submit" class="btn btn-danger">Delete All Data in System</button>
         </form>
     </div>
-    <div class="col-xs-2">
+    <br>
+    <br>
+    <div class="col s12">
         <form class="form-inline" role="form" method="post" action="{{ url_for('reset_comps') }}">
             <button type="submit" class="btn btn-danger">Delete Only the Competencies</button>
         </form>
     </div>
 </div>
-<div class="row"><div class="col-xs-12"><hr></div></div>
 {% endif %}
-<div class="row">
-    <div class="col-xs-12">
-        <p>
-        This app demonstrates one way to connect existing technologies to make smarter and more tailored tools for students. The goals are:
-        <ul>
-            <li>Show how a system can use the competency URIs to find the machine readable version of a competency.</li>
-            <li>Show how a competency URI can act as the object of some experience, or as part of the context of an experience.</li>
-            <li>Show how content relevant to a learners' goals can become discoverable in the Learning Registry (LR) by associating the competency URI to the content in the LR.</li>
-        </ul>
-        </p>
-    </div>
-    <div class="col-xs-12">
-        <h3>Getting Started</h3>
-        <p>
-        Log in or Sign up from the nav bar at the top of the page.
-        </p>
-        <p>
-        After logging in, explore the competencies and sets. Sign up for a competency. Search the LR and associate comptencies to the LR results.
-        </p>
-    </div>
-</div>
+</body>
+</div>  
+</html>
 {% endblock %}

@@ -1,110 +1,144 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 <div class="page-header">
     <h1>{{ fwk.title }}
     {% if current_user.is_authenticated() %}
         {% if not registered %}
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10"> </div>
+        </div>
+
+        <small>
         <small>
             <form class="form-inline" role="form" action="{{ url_for('add_comp') }}" method="post" >
             <input type="hidden" name="perfwk_uri" value="{{ fwk.uri }}">
-            <button type="submit" class="btn btn-default">Register</button>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Register</button>
             </form>
         </small>
+        </small>
+
         {% else %}
+        <small>
         <small>
             <form class="form-inline" role="form" action="{{ url_for('update_comp') }}" method="post" >
             <input type="hidden" name="perfwk_uri" value="{{ fwk.uri }}">
-            <button type="submit" class="btn btn-default">Update</button>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Update</button>
             </form>
         </small>
+        </small>
+
         {% endif %}
     {% endif %}</h1>
 </div>
-<div class="col-xs-12">
-    <dl class="dl-horizontal">
-        <dt>description</dt>
-        <dd>{{ fwk.description|safe }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>uri</dt>
-        <dd>{{ fwk.uri }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>type</dt>
-        <dd>{{ fwk.type }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>last modified</dt>
-        <dd>{{ fwk.lastmodified }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>ids</dt>
-        <dd>{{ fwk.ids }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>referenced object id</dt>
-        <dd>{{ fwk.objectids }}</dd>
-    </dl>
-</div>
+
+{% if fwk.title == "Experience API Tetris Levels Performance Framework" %}
+  <div class="fixed-action-btn" style="bottom: 125px; right: 24px;">
+    <a class="btn-floating tooltipped btn-large light-green accent-4" data-position="left" data-delay="50" data-tooltip="Play Tetris" href="https://lrs.adlnet.gov/prototypes/JsTetris_XAPI/tetris.html?endpoint=https%3A%2F%2Flrs.adlnet.gov%2Fxapi%2F&auth=Basic%20dG9tOjEyMzQ%3D&actor=%7B%22mbox%22%3A%22tomcreighton%40example.com%22%2C%22name%22%3A%22tom%20creighton%22%7D">
+      <i class="large material-icons">games</i>
+    </a>
+  </div>
+{% endif %}
+
+
+ <ul class="collection">
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Description</h5></span>
+      <p>{{ fwk.description|safe }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Type</h5></span>
+      <p>{{ fwk.type }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">URI</h5></span>
+      <p>{{ fwk.uri }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">IDS</h5></span>
+      <p>{{ fwk.ids }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Last Modified</h5></span>
+      <p>{{ fwk.lastmodified }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Referenced Object ID</h5></span>
+      <p>{{ fwk.objectids }}</p>
+    </li>
+  </ul>
 {% if error %}
 <div class="alert alert-danger">Something bad happened, try uploading badge image again - {{ error }}</div>
 {% endif %}
+
 <h2> Components </h2>
+
+<div class="row">
 {% for c in fwk.components %}
-<div class="col-xs-12">
     <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title">{{c.title}}</h3>
+      <div class="panel-heading">
+        <h3 class="indigo-text">{{c.title}}</h3>
         </div>
         <div class="panel-body">
-            <h4>Competencies</h4>
-            <div class="list-group">
-            {% for p in c.competencies %}
-            {% if p.type == 'http://ns.medbiq.org/competencyframework/v1/' %}
-                <a href="{{ url_for('frameworks') }}?uri={{p.entry}}" class="list-group-item">{{ p.entry }}</a>
-            {% else %}
-                <a href="{{ url_for('competencies') }}?uri={{p.entry}}" class="list-group-item">{{ p.entry }}</a>
-            {% endif %}
-            {% endfor %}
+        <div class="align-left">
+          <div class="col s12">
+            <div class="card transparent">
+              <div class="card-content white-text">
+                <span class="card-title orange-text accent-4">Competencies</span>
+                <p>
+                <div class="list-group">
+                    {% for p in c.competencies %}
+                    {% if p.type == 'http://ns.medbiq.org/competencyframework/v1/' %}
+                        <br><a href="{{ url_for('frameworks') }}?uri={{p.entry}}" class="list-group-item">{{ p.entry }}</a><br>
+                    {% else %}
+                        <br><a href="{{ url_for('competencies') }}?uri={{p.entry}}" class="list-group-item">{{ p.entry }}</a><br>
+                    {% endif %}
+                    {% endfor %}
+                    </div>
+                </p>
+              </div>
             </div>
-            <h4>Performance Levels</h4>
-            <div class="list-group">
-            {% for pl in c.performancelevels %}
-                <div class="list-group-item">
-                    <h5 class="list-group-item-heading">{{ pl.id }}</h5>
-                    <p class="list-group-item-text">
-                        <dl class="dl-horizontal">
-                            <dt>description</dt>
-                            <dd>{{ pl.description|safe }}</dd>
-                        </dl>
-                        <dl class="dl-horizontal">
-                            <dt>score</dt>
-                            <dd>{{ pl.score.singlevalue }}</dd>
-                        </dl>
-                        {% if 'admin' in current_user.roles %}
-                        <dl class="dl-horizontal">
-                            <dt>Badge Image</dt>
-                            <dd>
-                                {% if not pl.badgeuploaded %}
-                                <form method="POST" enctype="multipart/form-data" action="{{ url_for('badge_upload') }}" class="form-horizontal">
-                                    <input type="hidden" name="imageurl" value="{{ pl.badgeclassimage|safe }}">
-                                    <input type="hidden" name="componentid" value="{{ c.id }}">
-                                    <input type="hidden" name="uri" value="{{ fwk.uri }}">
-                                    <input type="file" name="badge"><br/>
-                                    <input type="submit" value="Upload">
-                                </form>
-                                {% else %}
-                                <image src="{{pl.badgeclassimage|safe}}"/>
-                                {% endif %}
-                            </dd>
-                        </dl>
-                        {% endif %}
-                    </p>
-                </div>
-            {% endfor %}
-            </div>
+          </div>
         </div>
+        <br>
+        <br>
+      </div>
     </div>
-</div>
+          <div class="row">
+            {% for pl in c.performancelevels %}
+              <div class="col s12 m6 l3">
+                <div class="card light-blue lighten-5">
+                  <div class="card-image">
+                  {% if 'admin' in current_user.roles %}
+                    {% if not pl.badgeuploaded %}
+                      <form method="POST" enctype="multipart/form-data" action="{{ url_for('badge_upload') }}" class="form-horizontal">
+                          <input type="hidden" name="imageurl" value="{{ pl.badgeclassimage|safe }}">
+                          <input type="hidden" name="componentid" value="{{ c.id }}">
+                          <input type="hidden" name="uri" value="{{ fwk.uri }}">
+                          <input type="file" name="badge"><br/>
+                          <input type="submit" value="Upload">
+                      </form>
+                      {% else %}
+                      <image src="{{pl.badgeclassimage|safe}}"/>
+                      {% endif %}
+                      {% endif %}
+                  </div>
+                  <div class="card-content">
+                      <span class="card-title black-text">{{ pl.id }}</span>
+                    <p>
+                      <span class="title">Description:</span>
+                        <p>{{ pl.description|safe }}</p>
+                        <br>
+                      <span class="title">Score:</span>
+                        <p>{{ pl.score.singlevalue }}</p>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
 {% endfor %}
+</div>
+</div>                    
 {% endblock %}

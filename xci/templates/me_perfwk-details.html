@@ -1,9 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 <div class="page-header">
     <h1>{{ fwk.title }}</h1>
         {% if fwk.uri == 'http://12.109.40.34/performance-framework/xapi/tetris' %}
-        <br/>
+        <br>
         <form class="form-inline" role="form" action="{{ url_for('view_assertions') }}" method="post">
             <input type="hidden" name="uri" value="{{fwk.uri}}">
             <button type="submit" class="btn btn-primary">View Badge Assertions</button>
@@ -16,33 +17,42 @@
     
 </div>
 
-<div class="col-xs-12">
-    <dl class="dl-horizontal">
-        <dt>description</dt>
-        <dd>{{ fwk.description|safe }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>uri</dt>
-        <dd>{{ fwk.uri }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>type</dt>
-        <dd>{{ fwk.type }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>last modified</dt>
-        <dd>{{ fwk.lastmodified }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>ids</dt>
-        <dd>{{ fwk.ids }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>referenced object id</dt>
-        <dd>{{ fwk.objectids }}</dd>
-    </dl>
-</div>
+
+
+
+ <ul class="collection">
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Description</h5></span>
+      <p>{{ fwk.description|safe }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Type</h5></span>
+      <p>{{ fwk.type }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">URI</h5></span>
+      <p>{{ fwk.uri }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">IDS</h5></span>
+      <p>{{ fwk.ids }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Last Modified</h5></span>
+      <p>{{ fwk.lastmodified }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Referenced Object ID</h5></span>
+      <p>{{ fwk.objectids }}</p>
+    </li>
+  </ul>
+{% if error %}
+<div class="alert alert-danger">Something bad happened, try uploading badge image again - {{ error }}</div>
+{% endif %}
+
 <h2> Components </h2>
+
+<div class="row">
 {% for c in fwk.components %}
 <div class="col-xs-12">
     <div class="panel panel-default">
@@ -62,24 +72,34 @@
             </div>
             <h4>Performance Levels</h4>
             <div class="list-group">
+            <div class="row">
             {% for pl in c.performancelevels %}
-                <div class="list-group-item">
-                    <h5 class="list-group-item-heading">{{ pl.id }}</h5>
+            <div class="col s6">
+            <div class="align-left">
+                <div class="card blue-grey lighten-3 z-depth-2">
+                  <div class="card-content black-text">
+                    <span class="card-title orange-text text-accent-4">{{ pl.id }}</span>
                     <p class="list-group-item-text">
                         <dl class="dl-horizontal">
-                            <dt>description</dt>
-                            <dd>{{ pl.description|safe }}</dd>
+                            <dt class="light-blue-text text-darken-4">Description:</dt>
+                            <dt>{{ pl.description|safe }}</dt>
                         </dl>
                         <dl class="dl-horizontal">
-                            <dt>score</dt>
-                            <dd>{{ pl.score.singlevalue }}</dd>
+                            <dt class="light-blue-text text-darken-4">Score:</dt>
+                            <dt>{{ pl.score.singlevalue }}</dt>
                         </dl>
                     </p>
+                  </div>
                 </div>
+            </div>
+            </div>
             {% endfor %}
             </div>
+        </div>
         </div>
     </div>
 </div>
 {% endfor %}
+</div>
+</div>  
 {% endblock %}

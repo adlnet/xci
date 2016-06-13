@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 <div class="row">
 	<div class="col-xs-12">
 		<div class="page-header">
@@ -7,6 +8,7 @@
 		</div>
 	</div>
 </div>
+
 <div class="row" id="formrow">
 	{% for profile in user_profiles %}
 	<span>{{ profile['name'] }}</span>
@@ -80,9 +82,10 @@
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<div class="checkbox">
-					<label>
-						<input type="checkbox" name="newdefault" id="newdefault" checked>Set as default
-					</label>
+					<p>
+				      <input type="checkbox" id="newdefault" />
+				      <label for="newdefault">Set as default</label>
+				    </p>
 				</div>
 			</div>	
 		</div>		
@@ -90,5 +93,6 @@
 			<div class="col-sm-offset-2 col-sm-10">	<button type="submit" class="btn btn-default">Add</button></div>
 		</div>
 	</form>
+</div>
 </div>
 {% endblock %}

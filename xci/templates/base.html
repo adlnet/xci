@@ -1,38 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-		<!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-			<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-		<![endif]-->
-		<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css" rel="stylesheet">
-		<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap-theme.min.css">		
+	  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+	  <title>ADL XCI</title>
+
+	  <!-- CSS  -->
+	  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	  <link href="/css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+	  <link href="/css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
 	</head>
+	<main>
 	<body>
-		<nav class="navbar navbar-inverse navbar-static-top" role="navigation">
-			<a class="navbar-brand" href="{{ url_for('index') }}">Home</a>
-			{% if current_user.is_authenticated() %}
-			<a class="navbar-text navbar-left" href="{{ url_for('me') }}">{{ current_user.id }}</a>
-			<a class="navbar-text navbar-right" href="{{ url_for('logout') }}">Logout</a>
-			{% else %}
-			{% if not hide %}
-			<p class="navbar-text navbar-left">New? Sign up <a href="{{ url_for('sign_up') }}">here</a></p>
-			{% endif %}
-			<a class="navbar-text navbar-right" href="{{ url_for('login') }}">Login</a>			
-			{% endif %}
-			<a class="navbar-text navbar-right" href="{{ url_for('lr_search') }}">LR Search</a>
-			<a class="navbar-text navbar-left" href="{{ url_for('competencies') }}">Competencies</a></li>
-			<a class="navbar-text navbar-left" href="{{ url_for('frameworks') }}">Competency Sets</a></li>
-			<a class="navbar-text navbar-left" href="{{ url_for('perfwks') }}">Performance Sets</a></li>
-		</nav>
+		<ul id="dropdown1" class="dropdown-content">
+		  <li><a href="{{ url_for('login') }}">Login</a></li>
+		  <li><a href="{{ url_for('sign_up') }}">New User</a></li>
+
+		</ul>
+		<nav class="blue" role="navigation">
+			<div class="nav-wrapper">
+			      <a href="#" class="brand-logo right">XCI</a>
+			      <ul id="nav-mobile" class="left hide-on-med-and-down">
+			        <li><a href="{{ url_for('index') }}">Home</a></li>
+					<li><a href="{{ url_for('me') }}">{{ current_user.id }}</a></li>
+					<li><a href="{{ url_for('perfwks') }}">Performance Sets</a></li>
+					<li><a href="{{ url_for('lr_search') }}">LR Search</a></li>
+					<li><a href="{{ url_for('competencies') }}">Competencies</a></li>
+					<li><a href="{{ url_for('frameworks') }}">Competency Sets</a></li>
+					{% if current_user.is_authenticated() %}
+				    <li><a href="{{ url_for('logout') }}">Logout</a></li>
+				    {% else %}
+				    <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Login<i class="material-icons right">arrow_drop_down</i></a></li>
+				    {% endif %}
+								
+		     </ul>
+		   </div>
+		 </nav>
+		 {% if current_user.is_authenticated() %}
+		 <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+		   <a class="btn-floating tooltipped btn-large cyan accent-4" data-position="left" data-delay="50" data-tooltip="My account" href="{{ url_for('me') }}">
+		     <i class="large material-icons">perm_identity</i>
+		   </a>
+		 </div>
+		 {% endif %}
+
+
+
 		{% block precontent %}{% endblock %}
-		<div class="container">
 			{% block content %}{% endblock %}
-		</div>		
-		<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-		<script src="https://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+		<script>(".dropdown-button").dropdown();</script>
+		<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+  		<script src="/js/materialize.js"></script>
+ 		<script src="/js/init.js"></script>
 		{% block js %}{% endblock %}
 	</body>
+	</main>
+	  <footer class="page-footer transparent">
+	    <div class="center footer-copyright blue">
+	      Made by <a class="orange-text text-lighten-3" href="http://www.adlnet.org/">Advance Distributed Learning</a>. Take a look at our other projects on our <a class="orange-text text-lighten-3" href="https://github.com/adlnet">git-hub</a> page</p>
+	    </div>
+	  </footer>
+
 </html>

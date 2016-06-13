@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 <div class="page-header">
     <h1>Competency Frameworks</h1>
 </div>
@@ -25,25 +26,29 @@
 <br>
 <br>
 <p>Below are the frameworks already added to the system.</p>
+
+<div class="row"><div class="col-xs-12"><hr></div></div>
+
 {% for cfwk in cfwks %}
-<div class="col-xs-12">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h3 class="panel-title"><a href="{{ url_for('frameworks') }}?uri={{cfwk.uri}}">{{ cfwk.title }}</a></h3>            
+<div class="center">
+        <div class="col s12 m6">
+          <div class="card blue-grey">
+            <div class="card-content white-text">
+              <span class="card-title"><a class="orange-text accent-4" href="{{ url_for('frameworks') }}?uri={{cfwk.uri}}">{{ cfwk.title }}</a></span>
+              <p>{{ cfwk.description|safe }}</p>
+                <ul>
+                {% for lr in cfwk.lr_data %}
+                <li><a href="{{ lr }}">LR Metadata</a></li>
+                {% else %}
+                There are no known linked LR resources
+                {% endfor %}
+                </ul>
+                </div>
+          </div>
         </div>
-        <div class="panel-body">
-            <p>{{ cfwk.description|safe }}</p>
-            <ul>
-            {% for lr in cfwk.lr_data %}
-            <li><a href="{{ lr }}">LR Metadata</a></li>
-            {% else %}
-            There are no known linked LR resources
-            {% endfor %}
-            </ul>            
-        </div>
-    </div>
-</div>
+      </div>
 {% else %}
 <p>No frameworks added to the system yet!</p>
 {% endfor %}
+</div>
 {% endblock %}

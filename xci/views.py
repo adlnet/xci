@@ -11,7 +11,7 @@ from functools import wraps
 from xci import app, competency, performance
 from xci.competency import MBCompetency as mbc
 from models import User
-from flask import render_template, redirect, flash, url_for, request, make_response, Response, jsonify, abort, send_file
+from flask import render_template, redirect, flash, url_for, request, make_response, Response, jsonify, abort, send_file, send_from_directory
 from forms import LoginForm, RegistrationForm, FrameworksForm, SettingsForm, SearchForm, CompetencyEditForm
 from flask_login import LoginManager, login_user, login_required, logout_user, current_user, current_app
 from werkzeug.security import generate_password_hash
@@ -347,6 +347,7 @@ def add_comp():
     elif request.form.get('fwk_uri', False):
         user.addFwk(request.form.get('fwk_uri', None))
     elif request.form.get('perfwk_uri', False):
+        print request.form.get('perfwk_uri', False)
         user.addPerFwk(request.form.get('perfwk_uri', None))
 
     return redirect(url_for("me"))
@@ -665,6 +666,18 @@ def compsearch():
             comps = models.searchComps(key)
         return render_template('compsearch.html', comps=comps, search_form=sf)        
 
+@app.route('/js/<path:path>')
+def send_js(path):
+    return send_from_directory('js', path)
+
+@app.route('/font/<path:path>')
+def send_font(path):
+    return send_from_directory('font', path)
+
+@app.route('/css/<path:path>')
+def send_css(path):
+    return send_from_directory('css', path)
+
 @app.route('/static/badgeclass/issuer')
 def tetris_issuer():
     return jsonify({"name": "Advanced Distributed Learning (ADL)", "url": current_app.config['DOMAIN_NAME']})
@@ -701,6 +714,7 @@ def view_assertions():
     name = current_user.id
 
     p = performance.evaluate(uri, name)
+    print p
     if p:
         models.createAssertion(p, uri)
 

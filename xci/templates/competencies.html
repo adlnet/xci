@@ -1,8 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
+
 <div class="page-header">
 	<span style="display:inline-block"><h1>Competencies</h1></span><span style="display:inline-block;padding-left:5em"></span>
 </div>
+
+<br>
+<br>
+
 <div class="row">
     <div class="col-xs-12">
     	<a href="/compsearch">Search Comps</a>
@@ -21,25 +27,29 @@ Click links to add competencies..
 <br><a href="./cc">common core</a>
 </p>
 {% endif %}
-<div class="col-xs-12">
+
+<div class="row">
 {% for c in comps %}
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="panel-title"><a href="{{ url_for('competencies') }}?uri={{c.uri}}">{{ c.title }}</a></h3>
-		</div>
-		<div class="panel-body">
-			<p>{{ c.description }}</p>
+<div class="center">
+	<div class="col s12 m6">
+	  <div class="card blue-grey">
+	    <div class="card-content white-text">
+	      <span class="card-title"><a class="orange-text accent-4" href="{{ url_for('competencies') }}?uri={{c.uri}}">{{ c.title }}</a></span>
+	      <p><p>{{ c.description }}</p>
 			<ul>
 			{% for lr in c.lr_data %}
 			<li><a href="{{ lr }}">LR Metadata</a></li>
 			{% else %}
 			There are no known linked LR resources
-			{% endfor %}
-			</ul>
-		</div>
+			{% endfor %}</p>
+		 </div>
+	  </div>
 	</div>
+</div>
 {% else %}
 <p>No competencies added to the system yet!</p>
 {% endfor %}
+</div>
+</div>
 </div>
 {% endblock %}

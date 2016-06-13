@@ -5,7 +5,9 @@ class Evaluate(object):
     def __init__(self, user):
         super(Evaluate, self).__init__()
         self.user = user
-        self.xapi = XAPIWrapper(user.profile.get('lrsprofiles', None))
+        foo = user.profile.get('lrsprofiles', None)
+        print foo
+        self.xapi = XAPIWrapper(foo)
     
     def check_all(self):
         comps = self.user.getCompArray()
@@ -31,7 +33,8 @@ class Evaluate(object):
         
         results = self.xapi.getstatements(
             agent=self.user.email, 
-            verb='http://adlnet.gov/expapi/verbs/passed',
+            verb='http://adlnet.gov/xapi/verbs/passed(to_go_beyond)',
+            # verb='http://adlnet.gov/expapi/verbs/passed',
             activity=uri, related_activities=True)
 
         completed = False
@@ -89,11 +92,14 @@ class XAPIWrapper(object):
                       since=None, until=None, limit=0):
         profile = lrsprofile if lrsprofile else self.getdefaultprofile()
         url = '%s%s' % (profile['endpoint'], 'statements')
+        print (agent)
         payload = self.getParams(agent, verb, activity, registration, 
                             related_activities, related_agents,
                             since, until, limit)
-
+        print (payload)
         r = requests.get(url, params=payload, headers=self.getheaders(profile), verify=False)
+        print r
+        print r.json()
         if r.status_code == requests.codes.ok:
             return (True, r.json())
         return (False, r.text)

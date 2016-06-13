@@ -1,158 +1,181 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 <div class="page-header">
-    <h1>{{ current_user.id }} <small> all things related to you</small></h1>
+    <h1 class="header cyan-text"> {{ current_user.id }} </h1> <h5> all things related to you</h5>
 </div>
-<div class="row">
+
+<ul class="collection">
+    <li class="collection-item avatar">
+      <i class="material-icons circle red">perm_identity</i>
+      <span class="title">Name</span>
+      <p>{{ name }}</p>
+    </li>
+    <li class="collection-item avatar">
+      <i class="material-icons circle blue">email</i>
+      <span class="title">Email</span>
+      <p>{{ email }}</p>
+    </li>
+    <li class="collection-item avatar">
+      <i class="material-icons circle green">thumb_up</i>
+      <span class="title">Achieved competencies</span>
+      <p>{{ completed }}</p>
+    </li>
+    <li class="collection-item avatar">
+      <i class="material-icons circle orange">schedule</i>
+      <span class="title">Competencies in progress</span>
+      <p>{{ started }}</p>
+    </li>
+  </ul>
+
+<div class="row left">
     <div class="col-xs-12">
-        <span class="glyphicon glyphicon-cog"></span><a href="{{ url_for('me_settings') }}"> Settings</a>
+        <a class="btn-floating btn-small gray" href="{{ url_for('me_settings') }}"><i class="material-icons">settings</i></a>
     </div>
 </div>
-<div class="page-header">
-    <div class="row">
-        <div class="col-xs-12">
-            <label for="username" class="col-xs-1 control-label">Name</label><small id="username">{{ name }}</small>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <label for="email" class="col-xs-1 control-label">Email</label><small id="email">{{ email }}</small>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <small><label for="achived" class="col-xs-1 control-label"><span class="badge">{{ completed }}</span></label><span id="achieved"> achieved competencies</span></small>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-xs-12">
-            <small><label for="inprogress" class="col-xs-1 control-label"><span class="badge">{{ started }}</span></label><span id="inprogress"> competencies in progress</span></small>
-        </div>
-    </div>
-    <div class="row">
+
+    <div class="row right">
         <div class="col-xs-12">
              <a href="#" class="btn btn-primary" role="button" onClick="pushBadges();">Push Badges</a>
         </div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="col-xs-12">
-             {% for ma in mozilla_asserts %}
-             {% if ma.badges|count > 0 %}
-             <small><b>{{ ma.title }} Badges</b></small><br/>
-                 {% for b in ma.badges %}
-                 <image src="{{b|safe}}" height="75px" width="75px"/>
-                 {% endfor %}
-                 <br />
-             {% endif %}
-             {% endfor %}
-        </div>
-    </div>     
 </div>
+<br>
+<br>
+<br>
+</div>
+    
+
+
+<div class="container">
+
 <div class="row">
-    <h4>Competencies</h4>
-    {% for comp in comps %}
-    <div class="col-xs-12">
-        {% if comp.completed %}
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><a href="{{ url_for('me_competencies') }}?uri={{ comp.uri }}">{{ comp.title }}</a></h3>
-                </div>
-                <div class="panel-body">
-                    <p>{{ comp.description }}</p>
-                    {% if comp.performances %}
-                    <p style="color:red">Click the competency link to view your assertions!</p>
-                    {% endif %}
-                    <ul>
-                    {% for lr in comp.lr_data %}
-                    <li><a href="{{ lr }}">LR Metadata</a></li>
-                    {% else %}
-                    There are no known linked LR resources
-                    {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        {% else %}
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title"><a href="{{ url_for('me_competencies') }}?uri={{ comp.uri }}">{{ comp.title }}</a></h3>
-                </div>
-                <div class="panel-body">
-                    <p>{{ comp.description }}</p>
-                    {% if comp.performances %}
-                    <p style="color:red">Click the competency link to view your assertions!</p>
-                    {% endif %}                    
-                    <ul>
-                    {% for lr in comp.lr_data %}
-                    <li><a href="{{ lr }}">LR Metadata</a></li>
-                    {% else %}
-                    There are no known linked LR resources
-                    {% endfor %}
-                    </ul>
-                </div>
-            </div>
-        {% endif %}
-    </div>
-    {% else %}
-    <div class="col-xs-12">You have not registered for any competencies</div>
-    {% endfor %}
-</div>
-<div class="row">
-    <h4>Competency Frameworks</h4>
-    {% for cfwk in fwks %}
-    <div class="col-xs-12">
-        {% if cfwk.completed %}
-        <div class="panel panel-success">
-        {% else %}
-        <div class="panel panel-default">
-        {% endif %}
-            <div class="panel-heading">
-                <h3 class="panel-title"><a href="{{ url_for('me_frameworks') }}?uri={{cfwk.uri}}">{{ cfwk.title }}</a></h3>
-            </div>
-            <div class="panel-body">
-                <p>{{ cfwk.description }}</p>
-                <ul>
-                {% for lr in cfwk.lr_data %}
-                <li><a href="{{ lr }}">LR Metadata</a></li>
-                {% else %}
-                There are no known linked LR resources
-                {% endfor %}
-                </ul>                
-            </div>
+ {% for ma in mozilla_asserts %}
+  {% if ma.badges|count > 0 %}
+    <div class="col s6">
+      <div class="align-left">
+        <div class="card blue-grey lighten-3 z-depth-2">
+          <div class="card-content black-text">
+            <span class="card-title orange-text text-accent-4">{{ ma.title }} Badges</span>
+            <p>{% for b in ma.badges %}
+            <image src="{{b|safe}}" height="75px" width="75px"/>
+            {% endfor %}</p>
+          </div>
         </div>
-    </div>
-    {% else %}
-    <div class="col-xs-12">You have not registered for any competency frameworks</div>
-    {% endfor %}
+      </div>
+    </div>   
+  {% endif %}
+ {% endfor %}
 </div>
-<div class="row">
-    <h4>Performance Frameworks</h4>
-    {% for pfwk in pfwks %}
-    <div class="col-xs-12">
-        {% if pfwk.completed %}
-        <div class="panel panel-success">
-        {% else %}
-        <div class="panel panel-default">
-        {% endif %}
-            <div class="panel-heading">
-                <h3 class="panel-title"><a href="{{ url_for('me_perfwks') }}?uri={{pfwk.uri}}">{{ pfwk.title }}</a></h3>
-            </div>
-            <div class="panel-body">
-                <p>{{ pfwk.description }}</p>
-                <ul>
-                {% for lr in pfwk.lr_data %}
-                <li><a href="{{ lr }}">LR Metadata</a></li>
-                {% else %}
-                There are no known linked LR resources
-                {% endfor %}
-                </ul>            
-            </div>
+
+</div>
+
+<div class="container">
+<h3 class="left-align blue-text">Competencies</h3>
+{% for comp in comps %}
+<div class="center-align">
+  {% if comp.completed %}
+  <div class="center-align">
+    <div class="col s12 m6">
+      <div class="card blue-grey lighten-3">
+        <div class="card-content black-text">
+          <span class="card-title"><a class="orange-text text-accent-4" href="{{ url_for('me_competencies') }}?uri={{ comp.uri }}">{{ comp.title }}</a></span>
+          <p>{{ comp.description }}</p>
+          <ul>
+          {% for lr in comp.lr_data %}
+          <li><a href="{{ lr }}">LR Metadata</a></li>
+          {% else %}
+          There are no known linked LR resources
+          {% endfor %}
+          </ul>
         </div>
+      </div>
     </div>
-    {% else %}
-    <div class="col-xs-12">You have not registered for any performance frameworks</div>
-    {% endfor %}
+  </div>
 </div>
+  {% else %}
+  <div class="center-align">
+    <div class="col s12 m6">
+      <div class="card blue-grey lighten-3">
+        <div class="card-content black-text">
+          <span class="card-title"><a class="orange-text text-accent-4" href="{{ url_for('me_competencies') }}?uri={{ comp.uri }}">{{ comp.title }}</a></span>
+          <p>{{ comp.description }}</p>                   
+          <ul>
+          {% for lr in comp.lr_data %}
+          <li><a href="{{ lr }}">LR Metadata</a></li>
+          {% else %}
+          There are no known linked LR resources
+          {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endif %}
+{% endfor %}
+</div>
+
+<br>
+<br>
+
+<h3 class="left-align blue-text">Competency Frameworks</h3>
+  {% for cfwk in fwks %}
+  <div class="center-align">
+    <div class="col s12 m6">
+      <div class="card blue-grey lighten-3">
+        <div class="card-content black-text">
+          <span class="card-title"><a class="orange-text text-accent-4" href="{{ url_for('me_frameworks') }}?uri={{cfwk.uri}}">{{ cfwk.title }}</a></span>
+          {% if cfwk.completed %}
+          <div class="card card-success"></div>
+          {% else %}
+          <div class="card card-default"></div>
+          {% endif %}
+            <p>{{ cfwk.description }}</p>
+            <ul>
+              {% for lr in cfwk.lr_data %}
+              <li><a href="{{ lr }}">LR Metadata</a></li>
+
+              {% else %}
+              There are no known linked LR resources
+              {% endfor %}
+            </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+{% else %}
+<div class="col-xs-12">You have not registered for any Competency frameworks</div>
+{% endfor %}
+
+<h3 class="left-align blue-text">Performance Frameworks</h3>
+<div class="center-align">
+  {% for pfwk in pfwks %}
+  <div class="col s12 m6">
+    <div class="card blue-grey lighten-3">
+      <div class="card-content black-text">
+        <span class="card-title"><a class="orange-text text-accent-4" href="{{ url_for('me_perfwks') }}?uri={{pfwk.uri}}">{{ pfwk.title }}</a></span>
+            {% if pfwk.completed %}
+            <div class="card card-success"></div>
+            {% else %}
+            <div class="card card-default"></div>
+            {% endif %}
+              <p>{{ pfwk.description }}</p>
+              <ul>
+              {% for lr in pfwk.lr_data %}
+              <li><a href="{{ lr }}">LR Metadata</a></li>
+              {% else %}
+              There are no known linked LR resources
+              {% endfor %}
+              </ul>
+        {% else %}
+        <div class="col-xs-12">You have not registered for any performance frameworks</div>
+    </div>
+  </div>
+</div>
+</div>
+{% endfor %}
+
+
+
 {% endblock %}
 {% block js %}
 <script src="https://backpack.openbadges.org/issuer.js"></script>

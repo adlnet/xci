@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 <div class="page-header">
     <h1>{{ fwk.title }}
     {% if current_user.is_authenticated() and not registered %}
@@ -12,70 +13,85 @@
     {% endif %}
     </h1>
 </div>
-<div class="col-xs-12">
-    <dl class="dl-horizontal">
-        <dt>uri</dt>
-        <dd>{{ fwk.uri }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>description</dt>
-        <dd>{{ fwk.description|safe }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>levels</dt>
-        <dd>{{ fwk.levels }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>type</dt>
-        <dd>{{ fwk.type }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>last modified</dt>
-        <dd>{{ fwk.lastmodified }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>ids</dt>
-        <dd>{{ fwk.ids }}</dd>
-    </dl>
-    <dl class="dl-horizontal">
-        <dt>relations</dt>
-        <dd>{{ fwk.relations }}</dd>
-    </dl>
+
+<br>
+
+<ul class="collection">
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Description</h5></span>
+      <p>{{ fwk.description|safe }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Type</h5></span>
+      <p>{{ fwk.type }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">URI</h5></span>
+      <p>{{ fwk.uri }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">IDS</h5></span>
+      <p>{{ fwk.ids }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Last Modified</h5></span>
+      <p>{{ fwk.lastmodified }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Levels</h5></span>
+      <p>{{ fwk.levels }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Relations</h5></span>
+      <p>{{ fwk.relations }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Last Modified</h5></span>
+      <p>{{ fwk.lastmodified }}</p>
+    </li>
+  </ul>
 </div>
+
+<div class="row">
 {% for c in fwk.competencies recursive %}
-<div class="col-xs-12">
-    <div class="panel panel-default">
-    {% if c.type == 'http://ns.medbiq.org/competencyframework/v1/' %}
-        <div class="panel-heading">
-            <h3 class="panel-title"><a href="{{ url_for('frameworks') }}?uri={{c.uri}}">{{ c.title }}</a></h3>
-        </div>
-        <div class="panel-body">
-            <p>{{ c.description|safe }}</p>
-            <ul>
-            {% for lr in c.lr_data %}
-            <li><a href="{{ lr }}">LR Metadata</a></li>
-            {% else %}
-            There are no known linked LR resources
-            {% endfor %}
-            </ul>            
-        </div>
-        {{ loop(c.competencies)}}
-    {% else %}
-        <div class="panel-heading">
-            <h3 class="panel-title"><a href="{{ url_for('competencies') }}?uri={{c.uri}}">{{ c.title }}</a></h3>
-        </div>
-        <div class="panel-body">
-            <p>{{ c.description|safe }}</p>
-            <ul>
-            {% for lr in c.lr_data %}
-            <li><a href="{{ lr }}">LR Metadata</a></li>
-            {% else %}
-            There are no known linked LR resources
-            {% endfor %}
-            </ul>            
-        </div>
-    {% endif %}
+{% if c.type == 'http://ns.medbiq.org/competencyframework/v1/' %}
+<div class="container">
+  <div class="col s12 m6">
+    <div class="card blue-grey">
+      <div class="card-content white-text">
+        <span class="card-title"><a class="orange-text accent-4" href="{{ url_for('frameworks') }}?uri={{c.uri}}">{{ c.title }}</a></span>
+        <p>{{ c.description|safe }}</p>
+          <ul>
+          {% for lr in c.lr_data %}
+          <li><a href="{{ lr }}">LR Metadata</a></li>
+          {% else %}
+          There are no known linked LR resources
+          {% endfor %}
+          </ul>
+      </div>
     </div>
+  </div>
 </div>
+  {{ loop(c.competencies)}}
+    {% else %}
+    <div class="container">
+        <div class="col s12 m6">
+          <div class="card blue-grey">
+            <div class="card-content white-text">
+              <span class="card-title"><a class="orange-text accent-4" href="{{ url_for('competencies') }}?uri={{c.uri}}">{{ c.title }}</a></span>
+              <p>{{ c.description|safe }}</p>
+                <ul>
+                {% for lr in c.lr_data %}
+                <li><a href="{{ lr }}">LR Metadata</a></li>
+                {% else %}
+                There are no known linked LR resources
+                {% endfor %}
+                </ul>  
+            </div>
+          </div>
+        </div>
+    </div>
+    {% endif %}
 {% endfor %}
+</div>
 {% endblock %}

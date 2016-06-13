@@ -9,15 +9,15 @@ DEFAULT_PROFILE = {
     "endpoint" : "http://localhost:8000/xapi/",
     # "endpoint" : "https://lrs.adlnet.gov/xapi/",
     "auth" : "Basic %s" % base64.b64encode("%s:%s" % ("tom", "1234")),
-    "username" : "tom",
-    "password" : "1234"
+    "username" : "pauliejes",
+    "password" : "tumbleweed216"
 }
 
 ALLOWED_BADGE_EXTENSIONS = set(['png'])
 BADGE_UPLOAD_FOLDER = 'static/badgeclass'
 
-LR_PUBLISH_NAME = ""
-LR_PUBLISH_PASSWORD = ""
+LR_PUBLISH_NAME = "Paulie Jesukiewicz"
+LR_PUBLISH_PASSWORD = "tumbleweed216"
 LR_PUBLISH_ENDPOINT = "https://sandbox.learningregistry.org/publish"
 
 # lr uri to obtain docs

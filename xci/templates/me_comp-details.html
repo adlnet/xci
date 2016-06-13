@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 <div class="page-header">
-    <h1>{{ comp.title }}
-    </h1>
+    <h1>{{ comp.title }}</h1>
 </div>
 <p>
     {% if comp.type != "http://ns.medbiq.org/competencyobject/v1/}CompetencyObject" %}
@@ -12,39 +12,41 @@
     <a href="{{ url_for('quiz', uri=comp.uri) }}" class="btn btn-primary" role="button">Take Quiz</a>
     {% endif %}
 </p>
-<div class="col-xs-12">
-<dl class="dl-horizontal">
-    <dt>uri</dt>
-    <dd>{{ comp.uri }}</dd>
-</dl>
-<dl class="dl-horizontal">
-    <dt>description</dt>
-    <dd>{{ comp.description|safe }}</dd>
-</dl>
-<dl class="dl-horizontal">
-    <dt>levels</dt>
-    <dd>{{ comp.levels }}</dd>
-</dl>
-<dl class="dl-horizontal">
-    <dt>type</dt>
-    <dd>{{ comp.type }}</dd>
-</dl>
-<dl class="dl-horizontal">
-    <dt>last modified</dt>
-    <dd>{{ comp.lastmodified }}</dd>
-</dl>
-<dl class="dl-horizontal">
-    <dt>ids</dt>
-    <dd>{{ comp.ids }}</dd>
-</dl>
-<dl class="dl-horizontal">
-    <dt>relations</dt>
-    <dd>{{ comp.relations }}</dd>
-</dl>
-<dl class="dl-horizontal">
-    <dt>Assertions</dt>
-    <dd>
-        <ul>
+
+
+
+<ul class="collection">
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Description</h5></span>
+      <p>{{ comp.description|safe }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Type</h5></span>
+      <p>{{ comp.type }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">URI</h5></span>
+      <p>{{ comp.uri }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">IDS</h5></span>
+      <p>{{ comp.ids }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Last Modified</h5></span>
+      <p>{{ comp.lastmodified }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Levels</h5></span>
+      <p>{{ comp.levels }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Relations</h5></span>
+      <p>{{ comp.relations }}</p>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Assertions</h5></span>
+      <ul>
         {% for p in comp.performances %}
             {% if 'badgeassertionuri' in p %}
             <li><a href="{{ p.badgeassertionuri }}">{{ p.levelid }}</a></li>
@@ -53,19 +55,18 @@
         You haven't earned any assertions yet!
         {% endfor %}
         </ul>
-    </dd>
-</dl>
-<dl class="dl-horizontal">
-    <dt>Linked LR data</dt>
-    <dd>
-        <ul>
+    </li>
+    <li class="collection-item">
+      <span class="title"><h5 class="orange-text accent-4">Linked LR data</h5></span>
+      <p>
         {% for lr in comp.lr_data %}
-        <li><a href="{{ lr }}">LR Metadata</a></li>
+        <li><a href="{{ lr }}"><h5 class="orange-text accent-4">LR Metadata</a></h5></li>
         {% else %}
         There are no known linked LR resources
         {% endfor %}
-        </ul>
-    </dd>
-</dl>
+      </p>
+    </li>
+  </ul>
+</div>
 </div>
 {% endblock %}
